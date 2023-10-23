@@ -1,45 +1,56 @@
 <?php
 
 /*
-Variables are "containers" for storing information.
+Variables in PHP are represented by a dollar sign followed by the name of the variable. 
 
-Creating (Declaring) a variable starts with the $ sign, followed by the name of the variable
+The variable name is case-sensitive.
 
+Variable names follow the same rules as other labels in PHP. 
+A valid variable name starts with a letter or underscore, followed by any number of letters,
+numbers, or underscores. As a regular expression, it would be expressed thus: ^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$
 A variable can have a short name (like x and y) or a more descriptive name (age, product, account_balance).
-
-While creating a variable there are set of rules we need to maintain:
-- A variable starts with the $ sign, followed by the name of the variable
-- A variable name must start with a letter or the underscore character
-- A variable name cannot start with a number
-- A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _ )
-- Variable names are case-sensitive ($age and $AGE are two different variables)
 */
-$say_hello = "Hello world!";
-$x = 7;
-$y = 19.5;
+$var = 'Bob';
+$Var = 'Joe';
+
+echo "$var, $Var";      // outputs "Bob, Joe"
+
+$4site = 'not yet';     // invalid; starts with a number
+$_4site = 'not yet';    // valid; starts with an underscore
+$täyte = 'mansikka';    // valid; 'ä' is (Extended) ASCII 228.
 
 /*
-After the execution of the statements above, the variable $say_hello will hold the value Hello world!,
-the variable $x will hold the value 7, and the variable $y will hold the value 19.5.
+By default, variables are always assigned by value. That is to say, 
+when you assign an expression to a variable, the entire value of the 
+original expression is copied into the destination variable. 
 
-Note: When you assign a text value to a variable, put quotes around the value we can use ' or " bot will work fine.
+This means, for instance, that after assigning one variable's value to another, 
+changing one of those variables will have no effect on the other.
 
-Note: Unlike other programming languages, PHP has no command for declaring a variable. 
-It is created the moment you first assign a value to it.
+PHP also offers another way to assign values to variables: assign by reference. 
+This means that the new variable simply references (in other words, "becomes an alias for"
+or "points to") the original variable. Changes to the new variable affect the original, and vice versa.
 
-Output Variables
-
-The echo statement is often used to output data to the screen.
+To assign by reference, simply prepend an ampersand (&) to the beginning of the variable
+which is being assigned (the source variable). For instance, the following code snippet 
+outputs 'My name is Bob' twice:
 */
 
-// Output the data that was stored in the say_hello variable
-echo $say_hello;
+$foo = 'Bob';              // Assign the value 'Bob' to $foo
+$bar = &$foo;              // Reference $foo via $bar.
+$bar = "My name is $bar";  // Alter $bar...
+echo $bar;
+echo $foo;                 // $foo is altered too.
 
-// Output the sum of two variables x and y
-echo $x + $y;
+// One important thing to note is that only named variables may be assigned by reference.
 
-// Create a $name variable
-$name = "Ishmael";
+$foo = 25;
+$bar = &$foo;      // This is a valid assignment.
+$bar = &(24 * 7);  // Invalid; references an unnamed expression.
 
-// Output text concatenate with the $name variable
-echo "Hello " . $name . "!";
+function test()
+{
+   return 25;
+}
+
+$bar = &test();    // Invalid.
