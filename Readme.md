@@ -1,3 +1,3 @@
 # PHP 101
 
-PHP 101 is where i share my experience while learning
+PHP is a server scripting language, and a powerful tool for making dynamic and interactive Web pages.
